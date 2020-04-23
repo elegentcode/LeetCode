@@ -1,1 +1,9 @@
 test pull
+388  ssh-keygen -t rsa -C "gent_code@163.com"
+  389  git st
+  390  git status
+  391  ls
+  392  git st
+  393  git remote add origin https://github.com/elegentcode/LeetCode.git
+  394*
+  395  git pull
