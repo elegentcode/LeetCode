@@ -2,7 +2,7 @@
 * @Author: Cheng.Wang
 * @Date:   2020-04-27 14:05:57
 * @Last Modified by:   Cheng.Wang
-* @Last Modified time: 2020-04-27 17:31:30
+* @Last Modified time: 2020-04-28 16:16:42
 * @Email:   cheng.wang@amlogic.com
 */
 #include<stdio.h>
@@ -69,18 +69,43 @@ struct ListNode {
 // }
 //
 
-int c = 0;
-struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
 
-    if(l1==NULL && l2==NULL && c==0) return NULL;
-    l1 = l1!=NULL ? (c += l1->val, l1->next) : l1;
-    l2 = l2!=NULL ? (c += l2->val, l2->next) : l2;
-    struct ListNode *re = (struct ListNode *)malloc(sizeof(struct ListNode));
-    re->val = c % 10;
-    c /= 10;
-    re->next = addTwoNumbers(l1, l2);
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
+	/*改进版本*/
+	int c = 0;
+	struct ListNode *p = (struct ListNode *)malloc(sizeof(struct ListNode));
+	struct ListNode *re = (struct ListNode *)malloc(sizeof(struct ListNode));
+	re = p;
+    while (1) {
+
+    	l1 = l1 != NULL ? (c += l1->val, l1->next) : l1;
+		l2 = l2 != NULL ? (c += l2->val, l2->next) : l2;
+		p->val = c % 10;
+		c /= 10;
+		if (l1 == NULL && l2 == NULL && c == 0) {
+			p->next = NULL;
+			break;
+		}
+		struct ListNode *n = (struct ListNode *)malloc(sizeof(struct ListNode));
+		p->next = n;
+		p = p->next;  // n
+    }
     return re;
 }
+
+
+// int c = 0;
+// struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
+
+//     if(l1 == NULL && l2 == NULL && c == 0) return NULL;
+//     l1 = l1 != NULL ? (c += l1->val, l1->next) : l1;
+//     l2 = l2 != NULL ? (c += l2->val, l2->next) : l2;
+//     struct ListNode *re = (struct ListNode *)malloc(sizeof(struct ListNode));
+//     re->val = c % 10;
+//     c /= 10;
+//     re->next = addTwoNumbers(l1, l2);
+//     return re;
+// }
 
 int main(int argc, char const *argv[])
 {
@@ -89,34 +114,34 @@ int main(int argc, char const *argv[])
 	struct ListNode *l2 = (struct ListNode *)malloc(sizeof(struct ListNode));
 	struct ListNode *p  = (struct ListNode *)malloc(sizeof(struct ListNode));
 	struct ListNode *re = (struct ListNode *)malloc(sizeof(struct ListNode));
-	// p = l1;
-	// for (int i = 0; i < 1; ++i) {
-	// 	/* code */
-	// 	l1->val = 5;
-	// 	if (i == 1) {
-	// 		l1->next = NULL;
-	// 		l1 = p;
-	// 		break;
-	// 	}
-	// 	l1->next = (struct ListNode *)malloc(sizeof(struct ListNode));
-	// 	l1 = l1->next;
-	// }
-	// p = l2;
-	// for (int i = 0; i < 1; ++i) {
-	// 	/* code */
-	// 	l2->val = 5;
-	// 	if (i == 1) {
-	// 		l2->next = NULL;
-	// 		l2 = p;
-	// 		break;
-	// 	}
-	// 	l2->next = (struct ListNode *)malloc(sizeof(struct ListNode));
-	// 	l2 = l2->next;
-	// }
-	l1->val = 5;
-	l2->val = 5;
-	l1->next = NULL;
-	l2->next = NULL;
+	p = l1;
+	for (int i = 0; i < 3; ++i) {
+		/* code */
+		l1->val = 9;
+		if (i == 2) {
+			l1->next = NULL;
+			l1 = p;
+			break;
+		}
+		l1->next = (struct ListNode *)malloc(sizeof(struct ListNode));
+		l1 = l1->next;
+	}
+	p = l2;
+	for (int i = 0; i < 5; ++i) {
+		/* code */
+		l2->val = 9;
+		if (i == 4) {
+			l2->next = NULL;
+			l2 = p;
+			break;
+		}
+		l2->next = (struct ListNode *)malloc(sizeof(struct ListNode));
+		l2 = l2->next;
+	}
+	// l1->val = 5;
+	// l2->val = 5;
+	// l1->next = NULL;
+	// l2->next = NULL;
 	for (p = l1; p != NULL; p = p->next)
 		printf("%d ", p->val);
 	printf("\n");
